@@ -1,0 +1,25 @@
+image: node:20
+
+stages:
+  - build
+
+variables:
+  CI_DEBUG_TRACE: "true"
+
+cache:
+  paths:
+    - node_modules/
+
+before_script:
+  - npm install -g @angular/cli
+
+build_job:
+  stage: build
+  script:
+    - npm install
+    - ng build --prod
+  artifacts:
+    paths:
+      - dist/
+  only:
+    - main  # 또는 CI/CD가 트리거되는 브랜치
