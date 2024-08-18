@@ -1,0 +1,18 @@
+@"
+image: node:20
+
+stages:
+  - build
+
+before_script:
+  - npm install -g @angular/cli @capacitor/cli
+
+build:
+  stage: build
+  script:
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - dist/
+"@ | Set-Content -Path .gitlab-ci.yml
