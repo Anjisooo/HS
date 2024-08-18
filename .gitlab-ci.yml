@@ -1,18 +1,25 @@
-@"
 image: node:20
 
 stages:
   - build
 
-before_script:
-  - npm install -g @angular/cli @capacitor/cli
+variables:
+  CI_DEBUG_TRACE: "true"
 
-build:
+cache:
+  paths:
+    - node_modules/
+
+before_script:
+  - npm install -g @angular/cli
+
+build_job:
   stage: build
   script:
     - npm install
-    - npm run build
+    - ng build --prod
   artifacts:
     paths:
       - dist/
-"@ | Set-Content -Path .gitlab-ci.yml
+  only:
+    - main  # 또는 CI/CD가 트리거되는 브랜치
